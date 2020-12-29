@@ -1,8 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from '../logo.svg';
 import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import { registerUser } from '../redux/actions/userActions';
 
 function Registration() {
+    const [user, setUser] = useState({name: '', email: '', password: '', password2: ''});
+    const dispatch = useDispatch();
+
+    // form handling functions
+    const handleChange = (e) => {
+        setUser({...user, [e.target.name]: e.target.value});
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(user.password !== '' && user.password === user.password2) {
+            const regUser = {
+                name: user.name,
+                email: user.email,
+                password: user.password
+            };
+            dispatch(registerUser(regUser));
+        }
+    };
+
     return (
         <div className='container my-4'>
             <div className='col-md-4 offset-md-4'>
@@ -11,15 +32,15 @@ function Registration() {
                 </div>
                 <div className='res-form w-100 registration'>
                     <h4>Create account</h4>
-                    <form className='form-group'>
-                        <label>Your name</label>
-                        <input className='form-control' type='text' />
-                        <label>Email</label>
-                        <input className='form-control' type='email' />
-                        <label>Password</label>
-                        <input className='form-control' type='password' />
-                        <label>Re-enter password</label>
-                        <input className='form-control' type='password' />
+                    <form onSubmit={handleSubmit} className='form-group'>
+                        <label htmlFor='name'>Your name</label>
+                        <input name='name' value={user.name} onChange={handleChange} className='form-control' type='text' />
+                        <label htmlFor='email'>Email</label>
+                        <input name='email' value={user.email} onChange={handleChange} className='form-control' type='email' />
+                        <label htmlFor='password'>Password</label>
+                        <input name='password' value={user.password} onChange={handleChange} className='form-control' type='password' />
+                        <label htmlFor='password2'>Re-enter password</label>
+                        <input name='password2' value={user.password2} onChange={handleChange} className='form-control' type='password' />
                         <button type='submit' className='btn btn-block res-btn mt-3'>Create yout account</button>
                     </form>
                     <p>

@@ -7,13 +7,13 @@ import { signOutUser } from '../redux/actions/userActions';
 
 
 function Navbar() {
-    const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn);
+    const {user, isLoggedIn} = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
     console.log(isLoggedIn)
 
     const handleSignOut = () => {
         dispatch(signOutUser());
-        localStorage.removeItem('data');
+        sessionStorage.removeItem('data');
     };
 
     return (
@@ -26,6 +26,7 @@ function Navbar() {
                         </li>
                     </NavLink>
                     <div className='d-flex w-100 justify-content-end align-items-center'>
+                        <li className='nav-title'>{user.name}</li>
                         {
                             isLoggedIn ?
                             (<NavLink to='/'className=' col-2'>

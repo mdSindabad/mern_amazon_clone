@@ -10,7 +10,16 @@ module.exports.registration = async (req, res, next) => {
         const newUser = new User({name, email, password});
         newUser.save((err, user) => {
             if(err) return next(newError(500, 'user could not be registered.'));
-            res.json(user);
+            const token = JWT.sign({data: user._id}, 'top secret');
+            const response = {
+                user: {
+                    id: user._id,
+                    name: user.name,
+                    email: user.email
+                },
+                token: `Bearer ${token}`
+            };
+            res.json(response);
         })
     } else {
         return next(newError(400, 'Email already registered'));
@@ -24,14 +33,14 @@ module.exports.signin = async (req, res, next) => {
     if(user) {
         const matchPass = await user.comparePassword(password);
         if(matchPass) {
-            const token = await JWT.sign({data: user._id}, 'top secret');
+            const token = JWT.sign({data: user._id}, 'top secret');
             const response = {
                 user: {
                     id: user._id,
                     name: user.name,
                     email: user.email
                 },
-                token
+                token: `Bearer ${token}`
             };
 
             res.json(response)

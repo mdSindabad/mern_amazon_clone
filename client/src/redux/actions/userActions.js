@@ -36,13 +36,27 @@ export const signInUser = (user) => {
         } else {
             axios.post('/user/signin', user)
                 .then(res =>{
-                    localStorage.setItem('data', JSON.stringify(res.data))
+                    sessionStorage.setItem('data', JSON.stringify(res.data))
                     dispatch(fetch_user_success(res.data.user));
                 })
                 .catch(err => {
                     dispatch(fetch_user_failure(err.message));
                 })
         }
+    }
+};
+// register-in user
+export const registerUser = (user) => {
+    return dispatch => {
+        dispatch(fetch_user_request());
+        axios.post('/user/register', user)
+            .then(res =>{
+                sessionStorage.setItem('data', JSON.stringify(res.data))
+                dispatch(fetch_user_success(res.data.user));
+            })
+            .catch(err => {
+                dispatch(fetch_user_failure(err.message));
+            })
     }
 };
 
