@@ -1,0 +1,200 @@
+/*---------------------------------------------------
+-------------------NavBar Style--------------------
+---------------------------------------------------*/
+.nav-menu {
+  background: #131921;
+  padding: 0.5rem;
+  align-items: center;
+}
+.logo {
+  font-size: 1.5rem;
+}
+.logo img {
+  max-width: 100px;
+  background-color: transparent;
+  filter: invert(100%) sepia(3%) saturate(7500%) hue-rotate(99deg)
+    brightness(105%) contrast(105%);
+}
+.nav-menu ul {
+  display: flex;
+  margin-bottom: 0;
+  align-items: center;
+}
+.nav-menu li {
+  list-style-type: none;
+  font-size: 1rem;
+  margin-top: 0;
+  text-align: end;
+}
+.nav-menu li.cart {
+  font-size: 1.5rem;
+}
+.nav-menu li:hover {
+  color: #febd69;
+}
+.nav-menu a {
+  color: #f7f8fb;
+}
+.nav-menu a:hover {
+  text-decoration: none;
+}
+
+/*---------------------------------------------------
+-------------------Banner Style--------------------
+---------------------------------------------------*/
+.banner {
+  height: 50vh;
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(234, 237, 237, 0.5)
+    ),
+    url("https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Hero/Fuji_TallHero_Home_v2_en_US_2x._CB429090087_.jpg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -10;
+}
+
+/*---------------------------------------------------
+-------------------Products Style--------------------
+---------------------------------------------------*/
+.product-container {
+  margin-top: -6rem;
+}
+.product {
+  box-sizing: border-box;
+  background-color: #ffffff;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  border-radius: 5px;
+  flex-basis: 32%;
+  cursor: pointer;
+}
+.product:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.product-img img {
+  max-height: 250px;
+  width: auto;
+  margin: 0.5rem auto;
+}
+
+/*---------------------------------------------------
+-------------------Product Item Style--------------------
+---------------------------------------------------*/
+.product-details .price {
+  color: #b12704;
+}
+.product-details .star {
+  color: #febd69;
+}
+.in-stock {
+  color: #007600;
+}
+.out-stock {
+  color: #b12704;
+}
+.add-to-cart-btn,
+.checkout {
+  background: hsla(34, 99%, 70%, 0.8);
+}
+.add-to-cart-btn:hover,
+.checkout:hover {
+  background: hsla(34, 99%, 70%, 1);
+}
+
+/*---------------------------------------------------
+-------------------Cart Style--------------------
+---------------------------------------------------*/
+.cart {
+  margin-top: 2rem;
+}
+.cart-item {
+  background: #fff;
+  margin-bottom: 0.2rem;
+}
+.cart-titles {
+  border-bottom: 1.5px solid #bbb;
+  margin-bottom: 1rem;
+}
+.price-title {
+  text-align: end;
+  margin-bottom: 0;
+}
+.product-name {
+  color: #007185;
+}
+.delete-btn {
+  margin-left: 1rem;
+}
+.product-price {
+  text-align: end;
+}
+
+/*---------------------------------------------------
+-------------------Registration/ Sign-in Page Style--------------------
+---------------------------------------------------*/
+.registration,
+.sign-in {
+  border: 1px solid #bbb;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+}
+.title-logo {
+  display: flex;
+  justify-content: center;
+}
+.title-logo img {
+  max-width: 100px;
+}
+.res-btn {
+  background: hsla(34, 99%, 70%, 0.8);
+}
+.res-btn:hover {
+  background: hsla(34, 99%, 70%, 1);
+}
+.registration label {
+  margin: 0.5rem 0 0;
+}
+.sign-in-mini-title {
+  text-align: center;
+}
+.sign-in-mini-title {
+  position: relative;
+}
+.sign-in-mini-title::after,
+.sign-in-mini-title::before {
+  display: inline-block;
+  content: "";
+  border-top: 1px solid #bbb;
+  width: 30%;
+  position: absolute;
+  top: 50%;
+}
+.sign-in-mini-title::before {
+  transform: translate(-102%, 100%);
+}
+.sign-in-mini-title::after {
+  transform: translate(2%, 100%);
+}
+.create-acc-btn {
+  padding: 0.2rem 0.6rem;
+  background: #e7e9ec;
+  border-color: #adb1b8 #a2a6ac #8d9096;
+}
+.create-acc-btn:hover {
+  background: #c4c4c5c2;
+}
+
+/*---------------------------------------------------
+-------------------Footer Style--------------------
+---------------------------------------------------*/
+.footer {
+  background: #131921;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+  color: #fff;
+}
