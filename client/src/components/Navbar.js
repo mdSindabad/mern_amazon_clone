@@ -9,7 +9,6 @@ import { signOutUser } from '../redux/actions/userActions';
 function Navbar() {
     const {user, isLoggedIn} = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
-    console.log(isLoggedIn)
 
     const handleSignOut = () => {
         dispatch(signOutUser());

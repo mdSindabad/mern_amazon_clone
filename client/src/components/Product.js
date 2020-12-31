@@ -3,7 +3,7 @@ import React from 'react';
 function Product(props) {
     const {product, image, _id, name, price} = props.product;
     return (
-        <div onClick={() => props.handleClick(_id)} key={_id} className='col-md-4 col-12 product' >
+        <div onClick={() => props.handleClick(_id)} className='col-md-4 col-12 product' >
             <div className='product-img'>
                 <img src={image} alt='product' />
             </div>

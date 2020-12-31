@@ -192,6 +192,9 @@
 .create-acc-btn:hover {
   background: #c4c4c5c2;
 }
+.input-error {
+  color: red;
+}
 
 /*---------------------------------------------------
 -------------------Footer Style--------------------

@@ -1,24 +1,30 @@
-import React, { useState, useEffect} from 'react';
+import React from 'react';
 import logo from '../logo.svg';
 import {useDispatch} from 'react-redux';
 import {signInUser} from '../redux/actions/userActions';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import * as Yup from 'yup';
 
 function SignIn(props) {
-    // local state
-    const [user, setUser] = useState({email: '', password: ''});
     
+    // formic
+    const initialValues = {
+        email: '',
+        password: ''
+    };
+
+    // yup validation
+    const validationSchema = Yup.object({
+        email: Yup.string().email('Invalid email').required('Required'),
+        password: Yup.string().required('Required')
+    })
+
     // redux dispatch
     const dispatch = useDispatch();
 
-    // form handling functions
-    const handleChange = (e) => {
-        setUser({...user, [e.target.name]: e.target.value})
-    };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(user.email && user.password) {
-            dispatch(signInUser(user))
-        }
+    // // form handling functions
+    const handleSubmit = (value) => {
+            dispatch(signInUser(value))
     }
 
     // route to registration page
@@ -32,16 +38,29 @@ function SignIn(props) {
                 <div className='title-logo'>
                     <img src={logo} alt='logo' />
                 </div>
-                <div className='res-form w-100 sign-in'>
-                    <h4>Sign-In</h4>
-                    <form onSubmit={handleSubmit} className='form-group'>
-                        <label htmlFor='email'>Email</label>
-                        <input name='email' value={user.email} onChange={handleChange} className='form-control' type='email' />
-                        <label htmlFor='password'>Password</label>
-                        <input name='password' value={user.password} onChange={handleChange} className='form-control' type='password' />
-                        <button type='submit' className='btn btn-block res-btn mt-3'>Create yout account</button>
-                    </form>
-                </div>
+                <h4>Sign-In</h4>
+                <Formik className='res-form w-100 sign-in'
+                    initialValues={initialValues}
+                    onSubmit={handleSubmit}
+                    validationSchema={validationSchema}
+                >
+                    {(value) => (
+                        <Form>
+                            <div className='form-group'>
+                                <label htmlFor='email'>Email</label>
+                                <Field className='form-control' id='email' name='email' type='email' />
+                                <ErrorMessage name='email' render={msg => <div className='input-error'>{msg}</div>} />
+                            </div>
+
+                            <div className='form-group'>
+                                <label htmlFor='password'>Password</label>
+                                <Field className='form-control' id='password' name='password' type='password' />
+                                <ErrorMessage render={msg => <div className='input-error'>{msg}</div>} name='password' />
+                            </div>
+                            <button className='btn btn-block res-btn mt-3' type='submit'>Create yout account</button>
+                        </Form>
+                    )}
+                </Formik>
                     <p className='sign-in-mini-title text-secondary'>New to Amazon?</p>
                     <div className='d-flex justify-content-center'>
                         <button onClick={handleClick} className='create-acc-btn btn btn-block'>Create Your Amazon account</button>

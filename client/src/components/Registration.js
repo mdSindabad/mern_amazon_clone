@@ -3,25 +3,42 @@ import logo from '../logo.svg';
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import { registerUser } from '../redux/actions/userActions';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import * as Yup from 'yup';
 
 function Registration() {
-    const [user, setUser] = useState({name: '', email: '', password: '', password2: ''});
+    // const [user, setUser] = useState({name: '', email: '', password: '', passwordConfirm: ''});
     const dispatch = useDispatch();
 
     // form handling functions
-    const handleChange = (e) => {
-        setUser({...user, [e.target.name]: e.target.value});
+    // const handleChange = (e) => {
+    //     setUser({...user, [e.target.name]: e.target.value});
+    // };
+    
+    // formik
+    const initialValues = {
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirm: ''
     };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(user.password !== '' && user.password === user.password2) {
-            const regUser = {
-                name: user.name,
-                email: user.email,
-                password: user.password
-            };
-            dispatch(registerUser(regUser));
-        }
+
+    // yup validation
+    const validationSchema = Yup.object({
+        name: Yup.string().required('Required'),
+        email: Yup.string().email('Invalid email').required('Required'),
+        password: Yup.string().required('Required'),
+        passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
+    })
+
+
+    const handleSubmit = (value) => {
+        const regUser = {
+            name: value.name,
+            email: value.email,
+            password: value.password
+        };
+        dispatch(registerUser(regUser));
     };
 
     return (
@@ -30,24 +47,45 @@ function Registration() {
                 <div className='title-logo'>
                     <img src={logo} alt='logo' />
                 </div>
-                <div className='res-form w-100 registration'>
-                    <h4>Create account</h4>
-                    <form onSubmit={handleSubmit} className='form-group'>
-                        <label htmlFor='name'>Your name</label>
-                        <input name='name' value={user.name} onChange={handleChange} className='form-control' type='text' />
-                        <label htmlFor='email'>Email</label>
-                        <input name='email' value={user.email} onChange={handleChange} className='form-control' type='email' />
-                        <label htmlFor='password'>Password</label>
-                        <input name='password' value={user.password} onChange={handleChange} className='form-control' type='password' />
-                        <label htmlFor='password2'>Re-enter password</label>
-                        <input name='password2' value={user.password2} onChange={handleChange} className='form-control' type='password' />
-                        <button type='submit' className='btn btn-block res-btn mt-3'>Create yout account</button>
-                    </form>
-                    <p>
-                        <span>Already have an account? </span>
-                        <Link to='signin'>Sign-in</Link>
-                    </p>
-                </div>
+                <h4>Create account</h4>
+                <Formik className='res-form w-100 registration'
+                    initialValues={initialValues}
+                    onSubmit={handleSubmit}
+                    validationSchema={validationSchema}
+                >
+                    {(value) => (
+                         <Form>
+                            <div className='form-group'>
+                                <label htmlFor='name'>Your name</label>
+                                <Field className='form-control' name='name' id='name' type='text' />
+                                <ErrorMessage name='name' render={msg => <div className='input-error'>{msg}</div>} />
+                            </div>
+    
+                            <div className='form-group'>
+                                <label htmlFor='email'>Email</label>
+                                <Field className='form-control' name='email' id='email' type='email' />
+                                <ErrorMessage name='email' render={msg => <div className='input-error'>{msg}</div>} />
+                            </div>
+    
+                            <div className='form-group'>
+                                <label htmlFor='password'>Password</label>
+                                <Field className='form-control' name='password' id='password' type='password' />
+                                <ErrorMessage name='password' render={msg => <div className='input-error'>{msg}</div>} />
+                            </div>
+    
+                            <div className='form-group'>
+                                <label htmlFor='passwordConfirm'>Re-enter password</label>
+                                <Field className='form-control' name='passwordConfirm' id='passwordConfirm' type='password' />
+                                <ErrorMessage name='passwordConfirm' render={msg => <div className='input-error'>{msg}</div>} />
+                            </div>
+                            <button className='btn btn-block res-btn mt-3' type='submit'>Create yout account</button>
+                            <p className='mt-3'>
+                                <span>Already have an account? </span>
+                                <Link to='signin'>Sign-in</Link>
+                            </p>
+                        </Form>
+                    )}
+                </Formik>
             </div>
         </div>
     )

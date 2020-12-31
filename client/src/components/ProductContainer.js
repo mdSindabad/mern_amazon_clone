@@ -15,7 +15,7 @@ function ProductContainer(props) {
             <div className='container product-container'>
                 <div className='row d-flex flex-column flex-md-row justify-content-around'>
                     {data.map(product => 
-                        <Product product={product} handleClick={handleClick} />
+                        <Product key={product._id} product={product} handleClick={handleClick} />
                     )}
                 </div>
             </div>
