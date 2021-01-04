@@ -27,15 +27,15 @@ function Navbar() {
                         </li>
                     </NavLink>
                     <div className='d-flex w-100 justify-content-end align-items-center'>
-                        <NavLink to='/AddProducts' className=' col-2'>
+                        <NavLink to='/AddProducts' className=' col-3'>
                          <li className='nav-title'>{user.name}</li>
                         </NavLink>
                         {
                             isLoggedIn ?
-                            (<NavLink to='/'className=' col-2'>
+                            (<NavLink to='/'className=' col-4'>
                                 <li onClick={handleSignOut}>Sign-out</li>
                             </NavLink>) :
-                            (<NavLink to='/signin'className=' col-2'>
+                            (<NavLink to='/signin'className=' col-4'>
                                 <li>Sign-in</li>
                             </NavLink>)
                         }
