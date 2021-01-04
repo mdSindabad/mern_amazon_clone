@@ -1,6 +1,7 @@
 const express = require('express');
 const createError = require('http-errors');
-const router = require('./routes/user_routes');
+const userRouter = require('./routes/user_routes');
+const productRouter = require('./routes/product_routes');
 require('dotenv').config();
 
 
@@ -13,7 +14,8 @@ const app = express();
 
 // middlewares
 app.use(express.json());
-app.use('/user', router);
+app.use('/user', userRouter);
+app.use('/', productRouter);
 
 
 // 404 page

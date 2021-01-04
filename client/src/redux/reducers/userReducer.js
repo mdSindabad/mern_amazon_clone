@@ -17,7 +17,7 @@ export const userReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 error: ''
             }            
-            break;
+            
         case FETCH_USER_SUCCESS:
             return {
                 ...state,
@@ -26,7 +26,7 @@ export const userReducer = (state = initialState, action) => {
                 isLoggedIn: true,
                 error: ''
             }            
-            break;
+            
         case FETCH_USER_FAILURE:
             return {
                 ...state,
@@ -35,7 +35,7 @@ export const userReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 error: action.payload
             }            
-            break;
+            
         case SIGN_OUT_USER:
             return {
                 ...state,
@@ -44,10 +44,10 @@ export const userReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 error: ''
             }            
-            break;
+            
     
         default:
             return state
-            break;
+            
     }
 };

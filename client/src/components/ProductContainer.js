@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import {data} from '../data';
 import Product from './Product';
 import Banner from './Banner';

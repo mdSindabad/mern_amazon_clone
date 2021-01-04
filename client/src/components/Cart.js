@@ -1,10 +1,24 @@
 import React from 'react';
 import CartItem from './CartItem';
-import {data} from '../data';
+import {useSelector} from 'react-redux';
 
-function Cart() {
+function Cart(props) {
+    const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn);
+    const cartItems = useSelector(state => state.cartReducer.products);
+    const products = useSelector(state => state.cartReducer.products);
+    const totalPrice = products.reduce((acc, currentProduct) => {
+        return acc + parseInt(currentProduct.price)
+    }, 0);
 
-
+    const checkOut = () => {
+        if(cartItems.length) {
+            if(isLoggedIn) {
+                props.history.push('/shipping')
+            } else {
+                props.history.push('/signin')
+            }
+        } else return
+    }
 
     return (
         <div className='container cart'>
@@ -15,16 +29,15 @@ function Cart() {
                         <p className='price-title'>Price</p>
                     </div>
                     <div className='row'>
-                        {data.map(product => (
-                            <CartItem product={product} />
-                        ))}
+                        {products ? products.map(product => (
+                            <CartItem key={product.id} product={product} />
+                        )) : null}
                     </div>
                 </div>
-                <div className='col-md-3'>
-                    <h6>Subtotal (2 items): $ 100.99</h6>
-                    <button className='btn btn-block mt-2 checkout'>Proceed to Checkout</button>
+                <div className='col-md-3 mt-5 cart-checkout'>
+                    <h6>Subtotal ({products.length}): $ {totalPrice}</h6>
+                    <button onClick={checkOut} className='btn btn-block mt-2 checkout'>Proceed to Checkout</button>
                 </div>
-                
             </div>
         </div>
     )

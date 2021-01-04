@@ -1,11 +1,12 @@
 import React from 'react';
 import logo from '../logo.svg';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {signInUser} from '../redux/actions/userActions';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 function SignIn(props) {
+    const cartItems = useSelector(state => state.cartReducer.products);
     
     // formic
     const initialValues = {
@@ -24,7 +25,12 @@ function SignIn(props) {
 
     // // form handling functions
     const handleSubmit = (value) => {
-            dispatch(signInUser(value))
+        dispatch(signInUser(value))
+        if(cartItems.length) {
+            props.history.push('/shipping')
+        } else {
+            props.history.push('/')
+        }
     }
 
     // route to registration page

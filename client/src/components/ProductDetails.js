@@ -1,7 +1,8 @@
 import React from 'react';
 import {data} from '../data';
 import {BsStar, BsStarFill} from 'react-icons/bs';
-import { FaAllergies } from 'react-icons/fa';
+import {useDispatch, useSelector} from 'react-redux';
+import {add_to_cart} from '../redux/actions/cartActions';
 
 
 function ProductDetails(props) {
@@ -9,6 +10,20 @@ function ProductDetails(props) {
     const product = data.find(product => product._id === id);
     const totalCost = product.price * 1.15;
 
+    // redux cart items
+    const products = useSelector(state => state.cartReducer.products);
+    const dispatch = useDispatch();
+
+
+    // add to cart function
+    const addToCart = () => {
+        const doesExist = products.find(product => product._id === id);
+        if(doesExist) return window.alert('This product is already added to the cart.');
+        dispatch(add_to_cart(product));
+    };
+
+
+    // set product rating function
     const setRating = () => {
         const rating = Math.round(product.rating);
         const arrRating = new Array();
@@ -21,6 +36,8 @@ function ProductDetails(props) {
         return arrRating.map(star => star);
     };
 
+
+    // options setting sunction
     const setOption = () => {
         const optionArr = new Array();
         for(let i = 1; i <= product.stock; i++) {
@@ -31,7 +48,7 @@ function ProductDetails(props) {
 
 
     return (
-        <div className="container mt-4">
+        <div key={product.id} className="container mt-4">
             <div className='row'>
                 <div className='col-md-8'>
                     <img src={product.image} alt='product image' />
@@ -59,7 +76,7 @@ function ProductDetails(props) {
                                 setOption()
                             }
                         </select>
-                        <button className='btn btn-block mt-2 add-to-cart-btn'>Add to Cart</button>
+                        <button onClick={addToCart} className='btn btn-block mt-2 add-to-cart-btn'>Add to Cart</button>
                     </div>
                 </div>
             </div>

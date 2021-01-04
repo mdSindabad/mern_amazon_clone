@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import logo from '../logo.svg';
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
@@ -7,13 +7,8 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 function Registration() {
-    // const [user, setUser] = useState({name: '', email: '', password: '', passwordConfirm: ''});
+    
     const dispatch = useDispatch();
-
-    // form handling functions
-    // const handleChange = (e) => {
-    //     setUser({...user, [e.target.name]: e.target.value});
-    // };
     
     // formik
     const initialValues = {

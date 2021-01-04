@@ -7,7 +7,9 @@ import { signOutUser } from '../redux/actions/userActions';
 
 
 function Navbar() {
+    // redux store
     const {user, isLoggedIn} = useSelector(state => state.userReducer);
+    const cartItems = useSelector(state => state.cartReducer.products);
     const dispatch = useDispatch();
 
     const handleSignOut = () => {
@@ -25,7 +27,9 @@ function Navbar() {
                         </li>
                     </NavLink>
                     <div className='d-flex w-100 justify-content-end align-items-center'>
-                        <li className='nav-title'>{user.name}</li>
+                        <NavLink to='/AddProducts' className=' col-2'>
+                         <li className='nav-title'>{user.name}</li>
+                        </NavLink>
                         {
                             isLoggedIn ?
                             (<NavLink to='/'className=' col-2'>
@@ -37,6 +41,10 @@ function Navbar() {
                         }
                         <NavLink to='/cart' className='col-2'>
                             <li className='cart'><FaCartPlus /></li>
+                            {
+                                cartItems.length > 0 ? <div className='cart-badge'>{cartItems.length}</div> : null
+                            }
+                            
                         </NavLink>
                     </div>
                 </ul>

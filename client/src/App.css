@@ -1,3 +1,7 @@
+body {
+  padding-bottom: 4rem;
+}
+
 /*---------------------------------------------------
 -------------------NavBar Style--------------------
 ---------------------------------------------------*/
@@ -114,10 +118,17 @@
 ---------------------------------------------------*/
 .cart {
   margin-top: 2rem;
+  position: relative;
 }
 .cart-item {
   background: #fff;
   margin-bottom: 0.2rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.5rem 0.5rem #bbb;
+}
+.cart-item img {
+  width: 4rem;
+  padding-top: 0.5rem;
 }
 .cart-titles {
   border-bottom: 1.5px solid #bbb;
@@ -135,6 +146,27 @@
 }
 .product-price {
   text-align: end;
+}
+.cart-badge {
+  width: 1rem;
+  height: 1rem;
+  background: hsla(34, 99%, 70%, 1);
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  color: #000;
+  font-weight: 500;
+}
+.cart-checkout {
+  padding: 1.5rem 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(168, 202, 204);
+  box-shadow: 0 0.5rem 0.5rem #bbb;
 }
 
 /*---------------------------------------------------
@@ -197,9 +229,36 @@
 }
 
 /*---------------------------------------------------
+-------------------Shipping Style--------------------
+---------------------------------------------------*/
+.shipping {
+  border: 1.5px solid #bbb;
+  padding: 2rem 1rem;
+  border-radius: 0.4rem;
+}
+.process-wizard {
+  display: flex;
+  justify-content: space-between;
+  width: 30rem;
+  margin: 1rem auto;
+}
+.process-wizard div {
+  border-top: 0.3rem solid #bbb;
+  color: #333;
+  flex: 1 1;
+}
+.process-wizard .active {
+  border-top: 0.3rem solid hsla(34, 99%, 70%, 1);
+  color: hsla(34, 99%, 70%, 1);
+}
+
+/*---------------------------------------------------
 -------------------Footer Style--------------------
 ---------------------------------------------------*/
 .footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
   background: #131921;
   margin-top: 0.5rem;
   padding: 0.5rem;
