@@ -15,7 +15,7 @@ const app = express();
 // middlewares
 app.use(express.json());
 app.use('/user', userRouter);
-app.use('/', productRouter);
+app.use('/products', productRouter);
 
 
 // 404 page

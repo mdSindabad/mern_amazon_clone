@@ -1,4 +1,4 @@
-import {ADD_TO_CART, REMOVE_FROM_CART} from '../actionTypes/index';
+import {ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART} from '../actionTypes/index';
 
 
 // cart action creators
@@ -12,6 +12,11 @@ export const remove_from_cart = (payload) => {
     return {
         type: REMOVE_FROM_CART,
         payload
+    }
+};
+export const clear_cart = () => {
+    return {
+        type: CLEAR_CART
     }
 };
 

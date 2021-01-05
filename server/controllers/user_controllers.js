@@ -40,7 +40,7 @@ module.exports.signin = async (req, res, next) => {
                     name: user.name,
                     email: user.email
                 },
-                token: `Bearer ${token}`
+                token: token
             };
 
             res.json(response)

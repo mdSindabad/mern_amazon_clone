@@ -6,8 +6,6 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 function SignIn(props) {
-    const cartItems = useSelector(state => state.cartReducer.products);
-    
     // formic
     const initialValues = {
         email: '',
@@ -26,16 +24,22 @@ function SignIn(props) {
     // // form handling functions
     const handleSubmit = (value) => {
         dispatch(signInUser(value))
-        if(cartItems.length) {
-            props.history.push('/shipping')
-        } else {
+        const forwardingLink = props.location.search.split('=')[1];
+        if(forwardingLink === undefined) {
             props.history.push('/')
+        } else {
+            props.history.push('/shipping')
         }
     }
 
     // route to registration page
     const handleClick = () => {
-        props.history.push('/registration');
+        const forwardingLink = props.location.search.split('=')[1];
+        if(forwardingLink === '') {
+            props.history.push('/registration')
+        } else {
+            props.history.push('/registration?redirect=shipping')
+        }
     };
 
     return (

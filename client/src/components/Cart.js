@@ -15,7 +15,7 @@ function Cart(props) {
             if(isLoggedIn) {
                 props.history.push('/shipping')
             } else {
-                props.history.push('/signin')
+                props.history.push('/signin?redirect=shipping')
             }
         } else return
     }

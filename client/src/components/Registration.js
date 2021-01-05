@@ -6,7 +6,7 @@ import { registerUser } from '../redux/actions/userActions';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
-function Registration() {
+function Registration(props) {
     
     const dispatch = useDispatch();
     
@@ -34,6 +34,12 @@ function Registration() {
             password: value.password
         };
         dispatch(registerUser(regUser));
+        const forwardingLink = props.location.search.split('=')[1];
+        if(forwardingLink === undefined) {
+            props.history.push('/')
+        } else {
+            props.history.push('/shipping')
+        }
     };
 
     return (

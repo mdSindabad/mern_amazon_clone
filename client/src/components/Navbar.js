@@ -4,6 +4,7 @@ import logo from '../logo.svg';
 import {FaCartPlus} from 'react-icons/fa';
 import {useSelector, useDispatch} from 'react-redux';
 import { signOutUser } from '../redux/actions/userActions';
+import {clear_cart} from '../redux/actions/cartActions'
 
 
 function Navbar() {
@@ -14,6 +15,7 @@ function Navbar() {
 
     const handleSignOut = () => {
         dispatch(signOutUser());
+        dispatch(clear_cart());
         sessionStorage.removeItem('data');
     };
 
@@ -27,7 +29,7 @@ function Navbar() {
                         </li>
                     </NavLink>
                     <div className='d-flex w-100 justify-content-end align-items-center'>
-                        <NavLink to='/AddProducts' className=' col-3'>
+                        <NavLink to='/add-products' className=' col-3'>
                          <li className='nav-title'>{user.name}</li>
                         </NavLink>
                         {

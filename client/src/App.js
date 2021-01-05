@@ -36,8 +36,8 @@ function App() {
             <PublicRoute path='/registration' component={Registration} />
             <PublicRoute path='/signin' component={SignIn} />
             <Route path='/product/:id' component={ProductDetails} />
+            <Route path='/shipping' component={Shipping} />
             <PrivateRoute path='/add-products' component={AddProducts} />
-            <PrivateRoute path='/shipping' component={Shipping} />
             <PrivateRoute path='/payment' component={PaymentScreen} />
             <PrivateRoute path='/order' component={OrderPage} />
             <Route>
