@@ -7,7 +7,7 @@ import { signOutUser } from '../redux/actions/userActions';
 import {clear_cart} from '../redux/actions/cartActions'
 
 
-function Navbar() {
+function Navbar(props) {
     // redux store
     const {user, isLoggedIn} = useSelector(state => state.userReducer);
     const cartItems = useSelector(state => state.cartReducer.products);
@@ -29,9 +29,9 @@ function Navbar() {
                         </li>
                     </NavLink>
                     <div className='d-flex w-100 justify-content-end align-items-center'>
-                        <NavLink to='/add-products' className=' col-3'>
-                         <li className='nav-title'>{user.name}</li>
-                        </NavLink>
+                    <NavLink to='/add-products' className=' col-3'>
+                        <li className='nav-title'>{user.name}</li>
+                    </NavLink>
                         {
                             isLoggedIn ?
                             (<NavLink to='/'className=' col-4'>

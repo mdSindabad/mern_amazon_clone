@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {signInUser} from '../redux/actions/userActions';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import ProcessWizard from './ProcessWizard';
+
 
 function SignIn(props) {
     // formic
@@ -32,22 +34,33 @@ function SignIn(props) {
         }
     }
 
+    const topHeader = () => {
+        const forwardingLink = props.location.search.split('=')[0].split('?')[1];
+        console.log(forwardingLink)
+        if(forwardingLink === 'redirect') {
+            return(<ProcessWizard step1 />)
+        } else {
+            return (
+            <div className='title-logo'>
+                <img src={logo} alt='logo' />
+            </div>)
+        }
+    };
+
     // route to registration page
     const handleClick = () => {
-        const forwardingLink = props.location.search.split('=')[1];
-        if(forwardingLink === '') {
-            props.history.push('/registration')
-        } else {
+        const forwardingLink = props.location.search.split('=')[0].split('?')[1];
+        if(forwardingLink === 'redirect') {
             props.history.push('/registration?redirect=shipping')
+        } else {
+            props.history.push('/registration')
         }
     };
 
     return (
         <div className='container my-4'>
+                {topHeader()}
             <div className='col-md-4 offset-md-4'>
-                <div className='title-logo'>
-                    <img src={logo} alt='logo' />
-                </div>
                 <h4>Sign-In</h4>
                 <Formik className='res-form w-100 sign-in'
                     initialValues={initialValues}

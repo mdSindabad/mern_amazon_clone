@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import {userReducer} from './reducers/userReducer';
 import {cartReducer} from './reducers/cartReducer';
 import {shippingReducer} from './reducers/shippingReducer';
+import {productReducer} from './reducers/productReducer';
 
 const rootReducer = combineReducers({
     userReducer,
     cartReducer,
-    shippingReducer
+    shippingReducer,
+    productReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -17,6 +17,7 @@ import AddProducts from './components/AddProducts';
 import Shipping from './components/Shipping';
 import PaymentScreen from './components/PaymentScreen';
 import OrderPage from './components/OrderPage';
+import AdminRoutes from './helpers/AdminRoutes';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function App() {
             <PublicRoute path='/signin' component={SignIn} />
             <Route path='/product/:id' component={ProductDetails} />
             <Route path='/shipping' component={Shipping} />
-            <PrivateRoute path='/add-products' component={AddProducts} />
+            <AdminRoutes path='/add-products' component={AddProducts} />
             <PrivateRoute path='/payment' component={PaymentScreen} />
             <PrivateRoute path='/order' component={OrderPage} />
             <Route>

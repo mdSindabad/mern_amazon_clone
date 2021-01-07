@@ -1,3 +1,7 @@
+// products request types
+export const GET_PRODUCTS_REQUEST = 'GET_PRODUCTS_REQUEST'; 
+export const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS'; 
+export const GET_PRODUCTS_FAILURE = 'GET_PRODUCTS_FAILURE'; 
 
 // user request types
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';

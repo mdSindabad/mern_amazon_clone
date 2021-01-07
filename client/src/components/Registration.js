@@ -5,6 +5,8 @@ import {useDispatch} from 'react-redux';
 import { registerUser } from '../redux/actions/userActions';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import ProcessWizard from './ProcessWizard';
+
 
 function Registration(props) {
     
@@ -24,7 +26,32 @@ function Registration(props) {
         email: Yup.string().email('Invalid email').required('Required'),
         password: Yup.string().required('Required'),
         passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
-    })
+    });
+
+    const topHeader = () => {
+        const forwardingLink = props.location.search.split('=')[0].split('?')[1];
+        if(forwardingLink === 'redirect') {
+            return(<ProcessWizard step1 />)
+        } else {
+            return (
+            <div className='title-logo'>
+                <img src={logo} alt='logo' />
+            </div>)
+        }
+    };
+
+    const bottomLink = () => {
+        const forwardingLink = props.location.search.split('=')[0].split('?')[1];
+        if(forwardingLink === 'redirect') {
+            return null
+        } else {
+            return (
+                <p className='mt-3'>
+                    <span>Already have an account? </span>
+                    <Link to='signin'>Sign-in</Link>
+                </p>)
+        }
+    }
 
 
     const handleSubmit = (value) => {
@@ -44,10 +71,8 @@ function Registration(props) {
 
     return (
         <div className='container my-4'>
+            {topHeader()}
             <div className='col-md-4 offset-md-4'>
-                <div className='title-logo'>
-                    <img src={logo} alt='logo' />
-                </div>
                 <h4>Create account</h4>
                 <Formik className='res-form w-100 registration'
                     initialValues={initialValues}
@@ -80,10 +105,7 @@ function Registration(props) {
                                 <ErrorMessage name='passwordConfirm' render={msg => <div className='input-error'>{msg}</div>} />
                             </div>
                             <button className='btn btn-block res-btn mt-3' type='submit'>Create yout account</button>
-                            <p className='mt-3'>
-                                <span>Already have an account? </span>
-                                <Link to='signin'>Sign-in</Link>
-                            </p>
+                            {bottomLink()}
                         </Form>
                     )}
                 </Formik>

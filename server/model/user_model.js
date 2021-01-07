@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const { string, bool, boolean } = require('joi');
 
 const Schema = mongoose.Schema;
 
@@ -17,6 +18,10 @@ const userSchema = new Schema({
     password: {
         type: String,
         require: true
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true
     }
 });
 

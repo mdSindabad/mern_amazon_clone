@@ -5,14 +5,20 @@ const UserValidation = require('../helpers/userValidation');
 
 // registration route controller
 module.exports.registration = async (req, res, next) => {
-    const {value, error} = await UserValidation.validate(req.body);
+    const preVerifiedData = {
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+                isAdmin: false
+    }
+    const {value, error} = await UserValidation.validate(preVerifiedData);
     if(error) {
         next(newError(422))
     }else {
-        const {name, email, password} = value;
+        const {email} = value;
         const doesExist = await User.findOne({email});
         if(!doesExist) {
-            const newUser = new User({name, email, password});
+            const newUser = new User(value);
             newUser.save((err, user) => {
                 if(err) return next(newError(500, 'user could not be registered.'));
                 const token = JWT.sign({data: user._id}, process.env.SECRET_KEY);
@@ -20,7 +26,8 @@ module.exports.registration = async (req, res, next) => {
                     user: {
                         id: user._id,
                         name: user.name,
-                        email: user.email
+                        email: user.email,
+                        isAdmin: user.isAdmin
                     },
                     token: token
                 };
@@ -44,7 +51,8 @@ module.exports.signin = async (req, res, next) => {
                 user: {
                     id: user._id,
                     name: user.name,
-                    email: user.email
+                    email: user.email,
+                    isAdmin: user.isAdmin
                 },
                 token: token
             };

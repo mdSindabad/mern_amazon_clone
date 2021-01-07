@@ -1,23 +1,25 @@
 import React from 'react';
-import {data} from '../data';
 import {BsStar, BsStarFill} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
 import {add_to_cart} from '../redux/actions/cartActions';
 
 
 function ProductDetails(props) {
+    // redux products
+    const {products} = useSelector(state => state.productReducer);
+
     const id = props.match.url.split('=')[1];
-    const product = data.find(product => product._id === id);
+    const product = products.find(product => product._id === id);
     const totalCost = product.price * 1.15;
 
     // redux cart items
-    const products = useSelector(state => state.cartReducer.products);
+    const cartProducts = useSelector(state => state.cartReducer.products);
     const dispatch = useDispatch();
 
 
     // add to cart function
     const addToCart = () => {
-        const doesExist = products.find(product => product._id === id);
+        const doesExist = cartProducts.find(product => product._id === id);
         if(doesExist) return window.alert('This product is already added to the cart.');
         dispatch(add_to_cart(product));
     };
