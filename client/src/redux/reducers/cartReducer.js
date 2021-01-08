@@ -1,4 +1,4 @@
-import {ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART} from '../actionTypes/index';
+import {ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART, UPDATE_CART_QTY} from '../actionTypes/index';
 
 const initialCart = {
     products: []
@@ -19,7 +19,14 @@ export const cartReducer = (state = initialCart, action) => {
             return {
                 ...state,
                 products: newProducstList
-            }            
+            }   
+            
+        case UPDATE_CART_QTY:
+            const updatedProduct = state.products.filter(product => product._id !== action.payload._id)
+            return {
+                ...state,
+                products: [...updatedProduct, action.payload]
+            }
                 
         case CLEAR_CART:
             return initialCart          

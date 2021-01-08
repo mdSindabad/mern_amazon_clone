@@ -7,7 +7,10 @@ function Cart(props) {
     const cartItems = useSelector(state => state.cartReducer.products);
     const products = useSelector(state => state.cartReducer.products);
     const totalPrice = products.reduce((acc, currentProduct) => {
-        return acc + parseInt(currentProduct.price)
+        const cost = (currentProduct.price * currentProduct.qty);
+        const tax = (cost * 0.15);
+        const totalCost = (cost + tax)
+        return acc + totalCost
     }, 0);
 
     const checkOut = () => {
@@ -35,7 +38,8 @@ function Cart(props) {
                     </div>
                 </div>
                 <div className='col-md-3 mt-5 cart-checkout'>
-                    <h6>Subtotal ({products.length}): $ {totalPrice}</h6>
+                    <h6>Subtotal ({products.length}): $ {totalPrice.toFixed(2)}</h6>
+                    <small>including 15% vat.</small>
                     <button onClick={checkOut} className='btn btn-block mt-2 checkout'>Proceed to Checkout</button>
                 </div>
             </div>

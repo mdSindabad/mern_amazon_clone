@@ -1,14 +1,23 @@
-import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {remove_from_cart} from '../redux/actions/cartActions';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {remove_from_cart, update_cart_qty} from '../redux/actions/cartActions';
 
 
 function CartItem({product}) {
+    // local state
+    const [localQty, setLocalQty] = useState(product.qty)
+
     const dispatch = useDispatch();
 
     const handleClick = (id) => {
         dispatch(remove_from_cart(id));
     };
+
+    const handleChange = (e) => {
+        setLocalQty(e.target.value)
+        const updatedProduct = {...product, qty: e.target.value}
+        dispatch(update_cart_qty(updatedProduct))
+    }
 
     const setOption = () => {
         const optionArr = new Array();
@@ -27,12 +36,12 @@ function CartItem({product}) {
                 <div className='col-8'>
                     <h5 className='product-name'>{product.name}</h5>
                     <p>In Stock</p>
-                    <select>
+                    <select value={localQty} onChange={handleChange}>
                         {
                             setOption()
                         }
                     </select>
-                    <button onClick={() => handleClick(product._id)} className='btn btn-danger delete-btn'>Delete</button>
+                    <button onClick={() => handleClick(product._id)} className='btn btn-danger delete-btn mb-1'>Delete</button>
                 </div>
                 <div className='col-2'>
                     <div className='product-price'>

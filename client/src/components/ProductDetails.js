@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {BsStar, BsStarFill} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
 import {add_to_cart} from '../redux/actions/cartActions';
 
 
 function ProductDetails(props) {
+    // local state
+    const [qty, setQty] = useState(1);
+
     // redux products
     const {products} = useSelector(state => state.productReducer);
 
+    // finding product from redux store and calculating price
     const id = props.match.url.split('=')[1];
     const product = products.find(product => product._id === id);
-    const totalCost = product.price * 1.15;
+    const totalCost = product.price * 1.15 * qty;
+    product.qty = qty;
 
     // redux cart items
     const cartProducts = useSelector(state => state.cartReducer.products);
@@ -73,7 +78,7 @@ function ProductDetails(props) {
                             product.stock > 0 ?<h6 className='in-stock'>In Stock</h6>:
                             <h6 className='out-stock'>Stock Out</h6>
                         }
-                        <select>
+                        <select value={qty} onChange={(e) => setQty(e.target.value)}>
                             {
                                 setOption()
                             }

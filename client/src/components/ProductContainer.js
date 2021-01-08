@@ -1,5 +1,4 @@
 import React, { useEffect, Fragment } from 'react';
-import {data} from '../data';
 import Product from './Product';
 import Banner from './Banner';
 import {useSelector, useDispatch} from 'react-redux';

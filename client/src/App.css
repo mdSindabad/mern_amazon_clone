@@ -84,7 +84,7 @@ body {
   margin-right: 0.5rem;
 }
 .product-img img {
-  max-height: 250px;
+  max-height: 200px;
   width: auto;
   margin: 0.5rem auto;
 }
@@ -250,6 +250,57 @@ body {
 .process-wizard .active {
   border-top: 0.3rem solid hsla(34, 99%, 70%, 1);
   color: hsla(34, 99%, 70%, 1);
+}
+
+/*---------------------------------------------------
+-------------------Order Page Style--------------------
+---------------------------------------------------*/
+table {
+  width: 100%;
+}
+.table-right-items {
+  text-align: end;
+}
+.order-total {
+  padding-top: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: crimson;
+}
+.order-page-custom-rows {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 95vw;
+  background: rgb(168, 170, 170);
+  margin-top: 0.5rem !important;
+  padding: 0.2rem !important;
+  border-radius: 0.3rem;
+}
+.order-items-row {
+  width: 100%;
+  display: flex;
+  border-bottom: 0.1rem solid #bbb;
+  align-items: baseline;
+}
+.order-price-title {
+  margin-left: auto;
+}
+.order-item {
+  padding-top: 0.5rem;
+  display: flex;
+  margin-top: 0.5rem;
+  background-color: rgb(133, 206, 176);
+  border-radius: 0.3rem;
+}
+.order-item img {
+  width: 3.5rem;
+  margin-right: 1rem;
+}
+.order-item-price {
+  margin-left: auto;
+}
+.full-length-header {
+  margin-bottom: 1rem;
 }
 
 /*---------------------------------------------------

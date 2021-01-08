@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {  } from '../redux/actions/userActions';
 import ProcessWizard from './ProcessWizard';
 
 function PaymentScreen(props) {
@@ -17,7 +16,7 @@ function PaymentScreen(props) {
         <div>
             <ProcessWizard step1 step2 step3 />
             <div className='col-md-4 offset-md-4 shipping'>
-                <h4><b>Shipping</b></h4>
+                <h4><b>Payment</b></h4>
                 <div>
                     <form onSubmit={handleSubmit} className='form-group'>
                         <input onChange={() => setPayment(!payment)} type='radio' name='Payment' id='Payment' value={payment} />
