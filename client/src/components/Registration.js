@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../logo.svg';
 import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { registerUser } from '../redux/actions/userActions';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
@@ -9,7 +9,7 @@ import ProcessWizard from './ProcessWizard';
 
 
 function Registration(props) {
-    
+    const state = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
     
     // formik
@@ -28,6 +28,7 @@ function Registration(props) {
         passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
     });
 
+    // top header section
     const topHeader = () => {
         const forwardingLink = props.location.search.split('=')[0].split('?')[1];
         if(forwardingLink === 'redirect') {
@@ -40,6 +41,7 @@ function Registration(props) {
         }
     };
 
+    // routing to sign-in
     const bottomLink = () => {
         const forwardingLink = props.location.search.split('=')[0].split('?')[1];
         if(forwardingLink === 'redirect') {
@@ -53,7 +55,7 @@ function Registration(props) {
         }
     }
 
-
+    // submit function
     const handleSubmit = (value) => {
         const regUser = {
             name: value.name,
@@ -62,10 +64,14 @@ function Registration(props) {
         };
         dispatch(registerUser(regUser));
         const forwardingLink = props.location.search.split('=')[1];
-        if(forwardingLink === undefined) {
-            props.history.push('/')
-        } else {
-            props.history.push('/shipping')
+        if(state.error) {
+            return
+        }else {
+            if(forwardingLink === undefined) {
+                props.history.push('/')
+            } else {
+                props.history.push('/shipping')
+            }   
         }
     };
 
@@ -104,6 +110,7 @@ function Registration(props) {
                                 <Field className='form-control' name='passwordConfirm' id='passwordConfirm' type='password' />
                                 <ErrorMessage name='passwordConfirm' render={msg => <div className='input-error'>{msg}</div>} />
                             </div>
+                            {state.error ? <div style={{color: 'red'}}>Email already registered!</div> : null}
                             <button className='btn btn-block res-btn mt-3' type='submit'>Create yout account</button>
                             {bottomLink()}
                         </Form>

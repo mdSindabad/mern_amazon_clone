@@ -8,6 +8,8 @@ import ProcessWizard from './ProcessWizard';
 
 
 function SignIn(props) {
+    const state = useSelector(state => state.userReducer);
+
     // formic
     const initialValues = {
         email: '',
@@ -27,16 +29,19 @@ function SignIn(props) {
     const handleSubmit = (value) => {
         dispatch(signInUser(value))
         const forwardingLink = props.location.search.split('=')[1];
-        if(forwardingLink === undefined) {
-            props.history.push('/')
-        } else {
-            props.history.push('/shipping')
+        if(state.error) {
+            return
+        }else {
+            if(forwardingLink === undefined) {
+                props.history.push('/')
+            } else {
+                props.history.push('/shipping')
+            }
         }
     }
 
     const topHeader = () => {
         const forwardingLink = props.location.search.split('=')[0].split('?')[1];
-        console.log(forwardingLink)
         if(forwardingLink === 'redirect') {
             return(<ProcessWizard step1 />)
         } else {
@@ -80,6 +85,7 @@ function SignIn(props) {
                                 <Field className='form-control' id='password' name='password' type='password' />
                                 <ErrorMessage render={msg => <div className='input-error'>{msg}</div>} name='password' />
                             </div>
+                            {state.error ? <div style={{color: 'red'}}>Email or Password wrong!</div> : null}
                             <button className='btn btn-block res-btn mt-3' type='submit'>Create yout account</button>
                         </Form>
                     )}

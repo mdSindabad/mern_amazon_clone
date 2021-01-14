@@ -36,7 +36,6 @@ export const signInUser = (user) => {
         } else {
             axios.post('/user/signin', user)
                 .then(res =>{
-                    console.log(res)
                     sessionStorage.setItem('data', JSON.stringify(res.data))
                     dispatch(fetch_user_success(res.data.user));
                 })
