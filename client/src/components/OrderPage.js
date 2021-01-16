@@ -1,11 +1,23 @@
 import React from 'react'
 import ProcessWizard from './ProcessWizard';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { remove_shipping_address } from '../redux/actions/shippingActions.js';
+import { clear_cart } from '../redux/actions/cartActions';
 
-function OrderPage() {
+toast.configure()
+
+
+function OrderPage(props) {
+    const dispatch = useDispatch();
+
     // data from redux store
     const shippingAddress = useSelector(state => state.shippingReducer);
     const cartItems = useSelector(state => state.cartReducer.products);
+    const user = useSelector(state => state.userReducer.user);
 
     // cost calculation
     const itemsCost = cartItems.reduce((acc, item) => {
@@ -16,6 +28,26 @@ function OrderPage() {
 
     // shaping shipping address
     const shippingString = Object.values(shippingAddress).join(', ');
+
+    // checkout function
+    const handleCheckout = async (token) => {
+        const response = await axios.post('/checkout', {
+            token,
+            name: user.name,
+            products: cartItems,
+            amount: totalCost,
+            address: shippingAddress
+        });
+        if(response.data.status === 'Success') {
+            toast('Payment Success!', {type: 'success'});
+            dispatch(clear_cart());
+            dispatch(remove_shipping_address());
+            props.history.push('/')
+        } else {
+            toast('Something went wrong!', {type: 'error'})
+        }
+    }
+
     return (
         <div className='container'>
             <ProcessWizard step1 step2 step3 step4 />
@@ -61,7 +93,6 @@ function OrderPage() {
                     </div>
                 </div>
                 <div className='col-md-3'>
-                    <button className='btn btn-block mt-2 checkout'>Place Order</button>
                     <div>
                         <h3 className='my-2'>Order Sumary</h3>
                         <table>
@@ -83,6 +114,12 @@ function OrderPage() {
                             </tr>
                         </table>
                     </div>
+                    {/* <button className='btn btn-block mt-2 checkout'>Place Order</button> */}
+                    <StripeCheckout
+                        stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                        token={handleCheckout}
+                        amount={totalCost * 100}
+                    />
                 </div>
             </div>
         </div>

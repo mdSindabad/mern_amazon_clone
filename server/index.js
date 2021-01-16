@@ -2,6 +2,7 @@ const express = require('express');
 const createError = require('http-errors');
 const userRouter = require('./routes/user_routes');
 const productRouter = require('./routes/product_routes');
+const checkout = require('./routes/checkout_route');
 require('dotenv').config();
 
 
@@ -16,6 +17,7 @@ const app = express();
 app.use(express.json());
 app.use('/user', userRouter);
 app.use('/products', productRouter);
+app.use('/checkout', checkout);
 
 
 // 404 page
@@ -34,6 +36,6 @@ app.use((err, req, res, next) => {
 
 
 // initialize server
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
